@@ -1,4 +1,5 @@
 from trader import Trader
+from model import Model
 import argparse
 
 if __name__ == '__main__':
@@ -14,4 +15,6 @@ if __name__ == '__main__':
                         default='output.csv',
                         help='output file name')
     args = parser.parse_args()
-    Trader(args.testing).run()
+    m = Model(args.training)
+    m.train_model()
+    Trader(args.testing, args.output).run(m)

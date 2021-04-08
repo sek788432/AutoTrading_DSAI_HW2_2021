@@ -59,7 +59,8 @@ class StockTrader:
 
     def sell(self, stock_price: float):
         if self.is_shorting_stock:
-            raise StockNumExceedError("You cannot sell short stocks when you've already sell short one")
+            raise StockNumExceedError(
+                "You cannot sell short stocks when you've already sell short one")
         elif self.is_holding_stock:
             self.accumulated_profit += stock_price - self.holding_price
             self.holding_price = None
@@ -88,7 +89,6 @@ def calculate_profit(stocks_df: pd.DataFrame, actions: List[int]) -> float:
             stock_trader.buy(stock['close'])
 
     return stock_trader.accumulated_profit
-
 
 
 if __name__ == "__main__":

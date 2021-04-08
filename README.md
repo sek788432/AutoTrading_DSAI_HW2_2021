@@ -1,4 +1,5 @@
 # Execution
 ```shell
-python main.py --testing ../data/testing.csv
+python main.py --training ../data/training.csv --testing ../data/testing.csv --output ../output_file/submission.csv
+
 ```
