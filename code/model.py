@@ -37,9 +37,34 @@ class Model():
         self.train_x = train_val[:, :-1]
         self.train_y = train_val[:, -1]
 
+    def preprocess_n_mean(self, n_day_mean, sliding_window):
+        # copy train data
+        train_set = self.train[['open']].copy()
+
+        # build n day mean data
+        x = []
+        open_price = train_set.iloc[:, 0]
+        i = n_day_mean
+        while i <= len(open_price):
+            sum_ = 0
+            for j in range(i - n_day_mean, i):
+                sum_ += open_price[j]
+            x.append(sum_ / n_day_mean)
+            i += sliding_window
+        y = []
+        for i in range(1, len(x)):
+            y.append(x[i])
+        x.pop()
+        train_set = pd.DataFrame(x, columns=['last_day'])
+        train_set['y'] = y
+
+        train_val = train_set.values
+        self.train_x = train_val[:, :-1]
+        self.train_y = train_val[:, -1]
+
     def train_model(self):
         self.load_data()
-        self.pre_process()
+        self.preprocess_n_mean(n_day_mean=5, sliding_window=1)
         self.model = XGBRegressor(objective="reg:squarederror", n_estimators=1000)
         self.model.fit(self.train_x, self.train_y)
 

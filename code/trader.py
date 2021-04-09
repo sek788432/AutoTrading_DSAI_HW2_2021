@@ -49,14 +49,15 @@ class Trader:
             writer.writerows(map(lambda x: [x], self.output))
         f.close()
 
-    def run(self, model):
+    def run_normal(self, model):
         # read test data
         df = pd.read_csv(self.data_path, header=None)
-
+        tomorrow_price = None
         # handle everyday open price
         for ind, open_price in enumerate(df.loc[:, 0]):
             if ind == 19:
                 break
+            print("Actual:", open_price, " Predict:", tomorrow_price)
             # update last five data from today
             self.last_five_data.append(open_price)
             self.last_five_data.pop(0)
@@ -66,6 +67,35 @@ class Trader:
 
         # make submission data
         self.make_output()
+
+    def run_mean(self, model):
+        # read test data
+        df = pd.read_csv(self.data_path, header=None)
+        tomorrow_price = None
+        open_price = df.loc[:, 0]
+        self.preprocess_mean()
+
+    def preprocess_mean(self):
+        test_set = df.copy()
+        # build n day mean data
+        n_day_mean = 5
+        sliding_window = 1
+        x = []
+        open_price = test_set.iloc[:, 0]
+        i = n_day_mean
+        while i <= len(open_price):
+            sum = 0
+            for j in range(i - n_day_mean, i):
+                sum += open_price[j]
+            x.append(sum / n_day_mean)
+            i += sliding_window
+
+        y = []
+        for i in range(1, len(x)):
+            y.append(x[i])
+        x.pop()
+        test_set = pd.DataFrame(x, columns=['last_day'])
+        test_set['y'] = y
 
 
 if __name__ == "__main__":
