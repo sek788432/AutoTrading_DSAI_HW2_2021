@@ -15,6 +15,7 @@ if __name__ == '__main__':
                         default='output.csv',
                         help='output file name')
     args = parser.parse_args()
-    m = Model(args.training)
-    m.train_model()
-    Trader(args.testing, args.output).run(m)
+    md = Model(args.training)
+    md.train_model()
+    Trader(args.training, args.testing, args.output).run_mean(md)
+    # Trader(args.training, args.testing, args.output).run_test()

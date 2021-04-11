@@ -65,8 +65,17 @@ class Model():
     def train_model(self):
         self.load_data()
         self.preprocess_n_mean(n_day_mean=5, sliding_window=1)
-        self.model = XGBRegressor(objective="reg:squarederror", n_estimators=1000)
-        self.model.fit(self.train_x, self.train_y)
+        self.xgb()
 
     def predict(self, five_days):
         return self.model.predict(np.array([five_days]))[0]
+
+    def predict_mean(self, today_price):
+        return self.model.predict(np.array([[today_price]]))[0]
+
+    def xgb(self):
+        self.model = XGBRegressor(objective="reg:squarederror", n_estimators=1000)
+        self.model.fit(self.train_x, self.train_y)
+
+    def lstm(self):
+        pass
