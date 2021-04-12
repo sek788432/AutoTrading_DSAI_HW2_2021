@@ -1,0 +1,6 @@
+tensorflow==2.4
+matplotlib
+pandas
+xgboost
+sklearn
+numpy
