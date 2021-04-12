@@ -76,7 +76,7 @@ After we done with XGBRegressor, we conduct a survey on stock price prediction m
 We use LSTM as our training model instead of traditional machine learning model.
 The way that training LSTM model is totally different from XGBRegressor. We have to slice our training data into groups. Each group contain a certain amount of data that as input. For output we expect as one values. So in this case, the input data will be the data before tommorow. It may be 1 or 5 or 300 as your setting. In our case, we pick 300 days before prediction day. For output data, it will be a single value as tommorow price prediction. This time we finally got a proper curve and proper prediction values. After that, we have a pretty good prediction value  after we put our output action into StockProfitCalculator.
 ### Model structure
-![predVSactual](./image/model.png)
+![model_structure](./image/model.PNG)
 ### Result plot
 ![predVSactual](./image/pred_vs_actual.png)
 ---
