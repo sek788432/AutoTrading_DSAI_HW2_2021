@@ -67,7 +67,7 @@ Next, we add 5 days close vales before tommorow as part of the training features
 ![XGB_5Day](./image/XGB_oc_5D.PNG)
 
 We have conduct another experiment by using XGBRegressor. We calculate 5 days mean before tommorow. By using the sliding window technique. We can get each 5 days mean values as training features.
-This time we have a totally different charts, and we have a better profit values as well. We got 0.3 as profit value but it was not good enough. At this point we would like to change our model. This version is the final XGBRegressor in our code.
+This time we have a totally different charts, and we have a better profit values as well. We got 0.54 as profit value but it was not good enough. At this point we would like to change our model. This version is the final XGBRegressor in our code.
 
 ![XGB_mean](./image/XGB_mean.PNG)
 
